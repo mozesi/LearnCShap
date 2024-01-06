@@ -1,3 +1,5 @@
+using LearnCSharp.Services;
+
 namespace LearnCSharp
 {
     public class Program
@@ -5,11 +7,13 @@ namespace LearnCSharp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddControllersWithViews();
+
             var app = builder.Build();
 
-           // app.MapGet("/", () => "Hello World!");
-            app.Run(async context => { await context.Response.WriteAsync("Moses"); });
-
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.MapControllerRoute("default", "default");
             app.Run();
         }
     }
