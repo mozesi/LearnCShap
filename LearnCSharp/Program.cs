@@ -16,6 +16,10 @@ namespace LearnCSharp
             app.MapControllerRoute(
                 name: "home",
                 pattern:"{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute(
+                name: "showStudent",
+                pattern: "student/{id?}",
+                defaults : new { controller = "Student", action = "showDetails" });
             app.Run();
         }
     }
