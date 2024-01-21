@@ -9,8 +9,10 @@
     <title>ShowDetails</title>
 </head>
 <body>
-    <p> First Name : @Model.FirstName</p>
-    <p> Last Name : @Model.LastName</p>
-    <p> Rank : @Model.Rank</p>
+    <p> <label asp-for="@Model.FirstName"></label> @Html.DisplayFor(m => m.FirstName)</p>
+    <p> <label asp-for="@Model.LastName"></label>@Html.DisplayFor(m => m.LastName)</p>
+    <p> <label asp-for="@Model.Rank"></label> @Html.DisplayFor(m => m.Rank)</p>
+    <p> <label asp-for="@Model.HiringDate"></label> @Html.DisplayFor(m => m.HiringDate)</p>
+    <p> <label asp-for="@Model.isTenured"></label> @Html.DisplayFor(m => m.isTenured)</p>
 </body>
 </html>

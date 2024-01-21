@@ -1,0 +1,24 @@
+﻿
+@model Instructor
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add Instructor</title>
+</head>
+<body>
+    <form asp-action="Add" asp-controller="Instructor" method="post">
+        @* Add form fields*@
+        <label asp-for="FirstName"></label> <input asp-for="FirstName" /><br />
+        <label asp-for="LastName"></label><input asp-for="LastName" /> <br />
+        <label asp-for="Rank"></label><Select asp-for="Rank"  asp-items="@Html.GetEnumSelectList(typeof(Ranks))"></Select> <br />
+        <label asp-for="isTenured"></label><input asp-for="isTenured" /> <br />
+        <label asp-for="HiringDate"></label><input asp-for="HiringDate" />
+        <input type="hidden" asp-for="Id" value="RandomNumberGenerator.GetInt32(1000)" />
+
+        <input type="Submit" value="create"/>
+    </form>
+</body>
+</html>
