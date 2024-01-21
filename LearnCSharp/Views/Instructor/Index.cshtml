@@ -1,0 +1,35 @@
+﻿
+@model IEnumerable<Instructor>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>
+        List of instructors
+    </h1>
+    <table>
+        <thead>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Rank</th>
+            <th>more</th>
+        </thead>
+        <tbody>
+            @foreach(var instructor in Model)
+            {
+                <td>@instructor.FirstName</td>
+                <td>@instructor.LastName</td>
+            <td>@Html.ActionLink("View Details", "ShowDetails", new{id=@instructor.Id})</td>
+
+            <td> <a asp-action="ShowDetails" asp-route-id="@instructor.Id">Details</a> </td>
+            }
+        </tbody>
+
+    </table>
+</body>
+</html>

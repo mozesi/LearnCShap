@@ -5,15 +5,16 @@ namespace LearnCSharp.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
-            int x  = 3 + 1 * 5 / 2;
-            return Content(x.ToString());
+            
+            return Content("Home");
         }
 
         public string GetMe(int id) {
 
-            return "Moises Msukwa";
+            return "";
         }
     }
 }

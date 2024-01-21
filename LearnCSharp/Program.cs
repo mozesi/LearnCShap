@@ -13,13 +13,11 @@ namespace LearnCSharp
 
             app.UseStaticFiles();
             app.UseRouting();
+            // app.MapDefaultControllerRoute();
             app.MapControllerRoute(
-                name: "home",
-                pattern:"{controller=Home}/{action=Index}/{id?}");
-            app.MapControllerRoute(
-                name: "showStudent",
-                pattern: "student/{id?}",
-                defaults : new { controller = "Student", action = "showDetails" });
+                name: "default",
+                pattern: "{controller=Instructor}/{action=Index}/{id?}"
+                );
             app.Run();
         }
     }
