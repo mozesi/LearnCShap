@@ -1,4 +1,6 @@
 
+using LearnCSharp.Services;
+
 namespace LearnCSharp
 {
     public class Program
@@ -8,6 +10,7 @@ namespace LearnCSharp
             var builder = WebApplication.CreateBuilder(args);
            
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IMyFakeDataService, MyFakeDataService>();
 
             var app = builder.Build();
 

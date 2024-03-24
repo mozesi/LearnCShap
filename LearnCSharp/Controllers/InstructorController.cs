@@ -1,4 +1,5 @@
 ﻿using LearnCSharp.Models;
+using LearnCSharp.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Cryptography;
@@ -8,24 +9,14 @@ namespace LearnCSharp.Controllers
     public class InstructorController : Controller
     {
 
-        List<Instructor> InstructorList = new List<Instructor>() 
-        { new Instructor() { 
-            Id = 1, FirstName ="John ",LastName ="Doe",Rank = Ranks.Insturctor, HiringDate = DateTime.Now,
-            isTenured = false,
+        private readonly IMyFakeDataService _fakeData;
 
-        },new Instructor() {
-             Id = 2,FirstName ="Josephy",LastName ="Doey",Rank = Ranks.AssistantProfessor, HiringDate = DateTime.Now,
-             isTenured = true,
-
-        },new Instructor() {
-             Id = 3,FirstName ="Joe",LastName ="Doenny",Rank = Ranks.AssociateProfessor, HiringDate = DateTime.Now,
-             isTenured = true,
-
+        public InstructorController(IMyFakeDataService fakeData) { 
+        _fakeData = fakeData;
         }
-        };
         public IActionResult Index()
         {
-            return View(InstructorList);
+            return View(_fakeData.Instructors);
         }
         public IActionResult ShowAll()
         {
@@ -33,11 +24,11 @@ namespace LearnCSharp.Controllers
         }
         public IActionResult DisplayAll()
         {
-            return View("index", InstructorList);
+            return View("index", _fakeData.Instructors);
         }
         public IActionResult ShowDetails(int id)
         {
-            Instructor? instructor = InstructorList.FirstOrDefault(instructor => instructor.Id == id);
+            Instructor? instructor = _fakeData.Instructors.FirstOrDefault(instructor => instructor.Id == id);
             if (instructor != null)
                 return View(instructor);
             return NotFound();
@@ -52,15 +43,15 @@ namespace LearnCSharp.Controllers
         [HttpPost]
         public IActionResult Add(Instructor instructor)
         {
-           // instructor.Id = RandomNumberGenerator.GetInt32(1000);
-            InstructorList.Add(instructor);
+            // instructor.Id = RandomNumberGenerator.GetInt32(1000);
+            _fakeData.Instructors.Add(instructor);
 
-            return View("Index",InstructorList);
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Instructor? instructor = InstructorList.FirstOrDefault(instructor=>instructor.Id == id);
+            Instructor? instructor = _fakeData.Instructors.FirstOrDefault(instructor=>instructor.Id == id);
 
             if (instructor != null)
                 return View(instructor);
@@ -69,7 +60,7 @@ namespace LearnCSharp.Controllers
 
         [HttpPost]
         public IActionResult Edit(Instructor instructorChanges) {
-            Instructor? instructor = InstructorList.FirstOrDefault(instructor => instructor.Id == instructorChanges.Id);
+            Instructor? instructor = _fakeData.Instructors.FirstOrDefault(instructor => instructor.Id == instructorChanges.Id);
 
             if (instructor != null) {
                 instructor.LastName = instructorChanges.LastName;
@@ -77,7 +68,7 @@ namespace LearnCSharp.Controllers
                 instructor.HiringDate = instructorChanges.HiringDate;
                 instructor.Rank = instructorChanges.Rank;
             }
-            return View("Index", InstructorList);
+            return RedirectToAction("Index");
         }
         public IActionResult Delete(int id)
         {
