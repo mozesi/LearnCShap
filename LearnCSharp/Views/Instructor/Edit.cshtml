@@ -1,0 +1,23 @@
+﻿
+@model Instructor
+<h1>Edit an instructor profile</h1>
+
+<form asp-action="Edit" method="post">
+    <input asp-for="@Model.Id" type="hidden" />
+    @*needed so the InstructorId is sent to the Edit(POST)*@
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName" />
+    <br>
+    <label asp-for="isTenured"></label>
+    <input asp-for="isTenured" />
+    <br>
+    <label asp-for="HiringDate"></label>
+    <input asp-for="HiringDate" />
+    <br>
+    <label asp-for="Rank"></label>
+    <select asp-for="Rank" asp-items="@Html.GetEnumSelectList(typeof(Ranks))"></select>
+    <br>
+    <br />
+    <input type="submit" value="Save changes" />
+    <input type="button" onclick="history.back()" value="Cancel">
+</form>

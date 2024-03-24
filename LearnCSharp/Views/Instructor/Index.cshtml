@@ -18,17 +18,25 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Rank</th>
+        <th>edit</th>
             <th>more</th>
         </thead>
         <tbody>
-            @foreach(var instructor in Model)
-            {
-                <td>@instructor.FirstName</td>
-                <td>@instructor.LastName</td>
-            <td>@Html.ActionLink("View Details", "ShowDetails", new{id=@instructor.Id})</td>
-
-            <td> <a asp-action="ShowDetails" asp-route-id="@instructor.Id">Details</a> </td>
+            @if(Model.Count() > 0){
+                @foreach (var instructor in Model)
+                {
+                <tr>
+                    <td>@instructor.FirstName</td>
+                    <td>@instructor.LastName</td>
+                    <td>@Html.ActionLink("View Details", "ShowDetails", new { id = @instructor.Id })</td>
+                    <td><a asp-action="Edit" asp-route-id="@instructor.Id">Edit record</a></td>
+                    <td> <a asp-action="ShowDetails" asp-route-id="@instructor.Id">Details</a> </td>
+                </tr>
+                }
+            }else{
+            <p> No datat</p>
             }
+
         </tbody>
 
     </table>

@@ -1,5 +1,6 @@
 ﻿using LearnCSharp.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Cryptography;
 
 namespace LearnCSharp.Controllers
@@ -56,9 +57,27 @@ namespace LearnCSharp.Controllers
 
             return View("Index",InstructorList);
         }
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View();
+            Instructor? instructor = InstructorList.FirstOrDefault(instructor=>instructor.Id == id);
+
+            if (instructor != null)
+                return View(instructor);
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Instructor instructorChanges) {
+            Instructor? instructor = InstructorList.FirstOrDefault(instructor => instructor.Id == instructorChanges.Id);
+
+            if (instructor != null) {
+                instructor.LastName = instructorChanges.LastName;
+                instructor.isTenured = instructorChanges.isTenured;
+                instructor.HiringDate = instructorChanges.HiringDate;
+                instructor.Rank = instructorChanges.Rank;
+            }
+            return View("Index", InstructorList);
         }
         public IActionResult Delete(int id)
         {
